@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bảng xếp hạng SNAG Golf League 2026 — VN Centre</title>
+<meta name="description" content="Bảng xếp hạng tích lũy SNAG Golf League 2026 — điểm của toàn bộ vận động viên và câu lạc bộ qua các chặng đã tổ chức.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap">
+<style>
+:root{
+  --ground:#F1F4EC; --surface:#FFFFFF; --surface-2:#F7F9F3;
+  --ink:#131E18; --ink-2:#41544A; --ink-3:#7E8F84;
+  --rule:#DAE2D6; --rule-strong:#B9C7B4;
+  --fairway:#0E6B3E; --fairway-soft:#E2EFE6;
+  --gold:#B0812A; --gold-soft:#F6EBD3;
+  --snag-red:#D23A2E; --snag-blue:#2A6FC9; --snag-yellow:#D9A21A; --snag-green:#2E9E52;
+  --shadow:0 1px 2px rgba(19,30,24,.05), 0 8px 24px -12px rgba(19,30,24,.18);
+}
+*{box-sizing:border-box}
+html,body{margin:0; padding:0}
+body{
+  background:var(--ground); color:var(--ink);
+  font-family:"Be Vietnam Pro",-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px; margin:0 auto; padding:clamp(18px,3vw,40px) clamp(12px,3vw,28px) 48px}
+
+.eyebrow{
+  font-family:"Oswald",sans-serif; font-size:12px; font-weight:500;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--fairway);
+  display:flex; align-items:center; gap:10px; margin:0 0 12px;
+}
+.eyebrow::after{content:""; flex:1; height:1px; background:var(--rule-strong)}
+h1{
+  font-family:"Oswald",sans-serif; font-weight:600; text-transform:uppercase;
+  font-size:clamp(26px,5.4vw,50px); line-height:1; letter-spacing:-.005em;
+  margin:0 0 10px; text-wrap:balance;
+}
+h1 .lo{display:block; color:var(--fairway)}
+.dek{margin:0; color:var(--ink-2); max-width:62ch; font-size:14.5px}
+
+.stats{display:flex; flex-wrap:wrap; gap:0; margin:22px 0 28px; border-top:1px solid var(--rule-strong); border-bottom:1px solid var(--rule-strong)}
+.stat{flex:1 1 118px; padding:13px 16px 12px; border-left:1px solid var(--rule)}
+.stat:first-child{border-left:0; padding-left:0}
+.stat b{display:block; font-family:"Oswald",sans-serif; font-weight:600; font-size:25px; line-height:1.1; font-variant-numeric:tabular-nums}
+.stat span{font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:500}
+
+.bar{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:16px}
+.tabs{display:flex; flex-wrap:wrap; gap:4px; background:var(--surface-2); border:1px solid var(--rule); border-radius:2px; padding:3px; max-width:100%}
+.tab{
+  font-family:"Oswald",sans-serif; font-size:13px; font-weight:500; letter-spacing:.08em; text-transform:uppercase;
+  background:none; border:0; color:var(--ink-2); padding:7px 13px; cursor:pointer; border-radius:1px;
+}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--fairway); color:#fff}
+.tab:focus-visible,input:focus-visible{outline:2px solid var(--fairway); outline-offset:2px}
+.search{
+  flex:1 1 190px; min-width:150px; padding:9px 12px; font:inherit; font-size:14px;
+  background:var(--surface); color:var(--ink); border:1px solid var(--rule-strong); border-radius:2px;
+}
+.search::placeholder{color:var(--ink-3)}
+
+.card{background:var(--surface); border:1px solid var(--rule-strong); border-radius:2px; box-shadow:var(--shadow); overflow-x:auto}
+table{width:100%; border-collapse:collapse; min-width:660px}
+thead th{
+  font-family:"Oswald",sans-serif; font-weight:500; font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-3); text-align:left; padding:12px 10px; border-bottom:1px solid var(--rule-strong);
+  background:var(--surface-2); white-space:nowrap;
+}
+tbody td{padding:11px 10px; border-bottom:1px solid var(--rule); vertical-align:middle}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:var(--surface-2)}
+.c-rank{width:62px; text-align:center; padding-left:14px}
+.c-num{text-align:center; font-variant-numeric:tabular-nums; white-space:nowrap}
+.rank{font-family:"Oswald",sans-serif; font-size:20px; font-weight:600; font-variant-numeric:tabular-nums; color:var(--ink-2)}
+.rank em{font-style:normal; font-size:11px; color:var(--ink-3); letter-spacing:.06em}
+tr.podium .rank{color:var(--gold)}
+tr.podium td:first-child{box-shadow:inset 3px 0 0 var(--gold)}
+.name{font-weight:600; font-size:15px; letter-spacing:-.005em}
+.club{display:inline-block; margin-top:2px; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); font-weight:500}
+.pts{font-family:"Oswald",sans-serif; font-size:22px; font-weight:600; font-variant-numeric:tabular-nums}
+.ev{font-variant-numeric:tabular-nums; font-size:13.5px; color:var(--ink-2); font-weight:500}
+.ev.none{color:var(--rule-strong)}
+.ev.champ{color:var(--gold); font-weight:700}
+.ev.join{color:var(--fairway)}
+.badge{
+  display:inline-flex; align-items:center; gap:5px; font-family:"Oswald",sans-serif; font-size:11px;
+  letter-spacing:.1em; text-transform:uppercase; font-weight:500;
+  background:var(--gold-soft); color:var(--gold); padding:3px 8px; border-radius:2px; white-space:nowrap;
+}
+.ball{display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:6px; vertical-align:1px}
+
+.evhead{display:flex; flex-wrap:wrap; align-items:baseline; gap:12px; padding:15px 14px 13px; border-bottom:1px solid var(--rule-strong); background:var(--surface-2)}
+.evhead h2{font-family:"Oswald",sans-serif; text-transform:uppercase; font-size:19px; font-weight:600; margin:0; letter-spacing:.02em}
+.evhead p{margin:0; font-size:12.5px; color:var(--ink-3); letter-spacing:.05em}
+.grp{font-family:"Oswald",sans-serif; font-size:12px; letter-spacing:.14em; text-transform:uppercase; font-weight:500;
+  color:var(--fairway); background:var(--fairway-soft); padding:8px 14px; border-bottom:1px solid var(--rule)}
+.score{font-family:"Oswald",sans-serif; font-size:17px; font-weight:600; font-variant-numeric:tabular-nums}
+.score.under{color:var(--snag-red)}
+.dh{font-size:12.5px; color:var(--ink-2)}
+
+.bar-track{margin-top:5px; height:4px; width:min(220px,100%); background:var(--rule); border-radius:2px; overflow:hidden}
+.bar-fill{display:block; height:100%; background:var(--fairway); border-radius:2px}
+.pending{padding:14px 16px; border-top:1px solid var(--rule-strong); background:var(--surface-2); font-size:13px; color:var(--ink-2); line-height:1.6}
+.pending b{color:var(--ink)}
+.empty{padding:32px 16px; text-align:center; color:var(--ink-3); font-size:14px}
+
+.notes{margin-top:30px; display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.note h3{font-family:"Oswald",sans-serif; text-transform:uppercase; font-size:12px; letter-spacing:.16em;
+  color:var(--ink-3); font-weight:500; margin:0 0 10px; padding-bottom:8px; border-bottom:1px solid var(--rule-strong)}
+.note ul{margin:0; padding:0; list-style:none; font-size:13.5px; color:var(--ink-2)}
+.note li{display:flex; justify-content:space-between; gap:14px; padding:4px 0}
+.note li b{color:var(--ink); font-variant-numeric:tabular-nums; font-weight:600}
+.note li.hi{margin-top:6px; padding-top:8px; border-top:1px solid var(--rule); color:var(--fairway)}
+.note li.hi b{color:var(--fairway)}
+.note p{margin:0 0 9px; font-size:13.5px; color:var(--ink-2)}
+.foot{margin-top:30px; padding-top:14px; border-top:1px solid var(--rule-strong); font-size:12px; color:var(--ink-3);
+  display:flex; flex-wrap:wrap; gap:8px 20px; justify-content:space-between}
+@media (max-width:560px){ .c-rank{width:46px; padding-left:8px} .stat{flex-basis:100px} }
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">VN Centre · Đảo Sen Golf Club · Hà Nội</p>
+  <h1>SNAG Golf League<span class="lo">Bảng xếp hạng 2026</span></h1>
+  <p class="dek">Điểm tích lũy của toàn bộ vận động viên qua các chặng đã công bố. Mỗi lần góp mặt được cộng 50 điểm tham dự, cộng thêm điểm theo thành tích trong bảng đấu.</p>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="bar">
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <input class="search" id="q" type="search" placeholder="Tìm tên vận động viên…" aria-label="Tìm tên vận động viên">
+  </div>
+
+  <div class="card" id="view"><p class="empty">Đang tải bảng xếp hạng…</p></div>
+
+  <div class="notes">
+    <div class="note">
+      <h3>Thang điểm</h3>
+      <ul id="thang"></ul>
+    </div>
+    <div class="note">
+      <h3>Cách tính</h3>
+      <p><b>Điểm tham dự:</b> mỗi lần góp mặt ở một chặng, vận động viên được cộng 50 điểm bất kể thành tích. Điểm hiện ở từng cột chặng đã gồm 50 điểm này, nên cộng ngang đúng bằng tổng điểm.</p>
+      <p><b>Vô địch — Best Gross</b> là danh hiệu duy nhất của mỗi chặng. Vận động viên nhận Best Gross không cộng thêm điểm bảng; suất Winner bảng chuyển cho người kế tiếp trong bảng đó.</p>
+      <p><b>Đồng điểm</b> thì đồng hạng và đồng số điểm, hạng kế tiếp không bị bỏ qua.</p>
+    </div>
+    <div class="note">
+      <h3>Lưu ý</h3>
+      <p>Chặng #3 dành riêng cho thầy cô giáo nên không tính vào bảng này.</p>
+      <p>Chặng #2, #4 và #5 giữ nguyên thứ hạng ban tổ chức đã công bố chính thức.</p>
+      <p id="nguon"></p>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>SNAG Golf League 2026 · Đảo Sen Golf Club, 125 Nguyễn Sơn, Hà Nội</span>
+    <span id="stamp"></span>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   CẤU HÌNH — chỉ cần sửa đúng một dòng dưới đây.
+
+   Dán vào giữa hai dấu nháy đường dẫn CSV của Google Sheets:
+   Sheets → Tệp → Chia sẻ → Xuất bản lên web → chọn sheet KETQUA
+   → định dạng "Giá trị được phân tách bằng dấu phẩy (.csv)" → Xuất bản.
+
+   Để trống thì trang dùng bản dữ liệu đóng gói sẵn bên trong.
+   ============================================================ */
+var CSV_URL = "";
+/* ========================================================== */
+
+var CFG = {"fallback": [["#1", "28/03/2026", "Division A", "Vũ Trí Đức", "Alpha School", -1, "Vô địch (Best Gross)"], ["#1", "28/03/2026", "Division A", "Bùi Vũ Trúc Mai", "TVD", 1, "Winner bảng"], ["#1", "28/03/2026", "Division A", "Hoàng Bảo Thiên Anh", "Alpha School", 3, "1st Runner Up"], ["#1", "28/03/2026", "Division A", "Nguyễn Thiên Phúc", "Alpha School", 6, "2nd Runner Up"], ["#1", "28/03/2026", "Division B", "Đỗ Thảo Anh", "TVD", 0, "Winner bảng"], ["#1", "28/03/2026", "Division B", "Vũ Anh Minh", "VSC Time City", 7, "1st Runner Up"], ["#1", "28/03/2026", "Division B", "Trần Thành Gia Khánh", "KL1", 8, "2nd Runner Up"], ["#2", "19/04/2026", "Division A (10 tuổi)", "Bùi Quốc Bảo", "TVD", -2, "Vô địch (Best Gross)"], ["#2", "19/04/2026", "Division A (10 tuổi)", "Vũ Trí Đức", "Alpha School", -1, "Winner bảng"], ["#2", "19/04/2026", "Division A (10 tuổi)", "Bùi Vũ Trúc Mai", "TVD", 1, "1st Runner Up"], ["#2", "19/04/2026", "Division B (9 tuổi)", "Nghiêm Tùng Lâm", "TVD", -1, "Winner bảng"], ["#2", "19/04/2026", "Division B (9 tuổi)", "Mai Nguyễn Minh Hoàng", "TVD", 2, "1st Runner Up"], ["#2", "19/04/2026", "Division B (9 tuổi)", "Nguyễn Minh Khang", "TVD", 2, "2nd Runner Up"], ["#2", "19/04/2026", "Division C (7-8 tuổi)", "Lê Mỹ Linh", "LHG", 1, "Winner bảng"], ["#2", "19/04/2026", "Division C (7-8 tuổi)", "Nguyễn Thiên Phúc", "Alpha School", 1, "1st Runner Up"], ["#2", "19/04/2026", "Division C (7-8 tuổi)", "Dương Thành Trung", "Alpha School", 1, "2nd Runner Up"], ["#2", "19/04/2026", "Division D (<=6 tuổi)", "Đỗ Thảo Anh", "TVD", 0, "Winner bảng"], ["#2", "19/04/2026", "Division D (<=6 tuổi)", "Vũ Anh Minh", "VSC Time City", 2, "1st Runner Up"], ["#2", "19/04/2026", "Division D (<=6 tuổi)", "Trần Thành Gia Khánh", "KL1", 3, "2nd Runner Up"], ["#2", "19/04/2026", "Division D (<=6 tuổi)", "Lê Hữu Phát", "LHG", 6, "3rd Runner Up"], ["#4", "20/06/2026", "Division C (<=8 tuổi)", "Nguyễn Đức Thiện Giác", "VSC Harmony", -1, "Vô địch (Best Gross)"], ["#4", "20/06/2026", "Division C (<=8 tuổi)", "Lê Mỹ Linh", "LHG", 0, "Winner bảng"], ["#4", "20/06/2026", "Division C (<=8 tuổi)", "Mai Quang Minh", "", 11, "1st Runner Up"], ["#4", "20/06/2026", "Division C (<=8 tuổi)", "Mai Bảo Châu", "", 12, "2nd Runner Up"], ["#4", "20/06/2026", "Division B (9-13 tuổi)", "Nguyễn Minh An", "HDHN", -1, "Winner bảng"], ["#4", "20/06/2026", "Division B (9-13 tuổi)", "Mai Nguyễn Minh Hoàng", "TVD", 1, "1st Runner Up"], ["#4", "20/06/2026", "Division B (9-13 tuổi)", "Lê Minh Hoàng", "FPT", 1, "1st Runner Up"], ["#4", "20/06/2026", "Division B (9-13 tuổi)", "Nguyễn Phương An", "HDHN", 3, "2nd Runner Up"], ["#4", "20/06/2026", "Division B (9-13 tuổi)", "Tạ Hà Thanh", "HDHN", 7, "3rd Runner Up"], ["#4", "20/06/2026", "Division A (>14 tuổi)", "Hoàng Phương Ngọc", "Parent", 2, "Winner bảng"], ["#4", "20/06/2026", "Division A (>14 tuổi)", "Nguyễn Thị Xinh", "Parent", 3, "1st Runner Up"], ["#4", "20/06/2026", "Division A (>14 tuổi)", "Mai Huy Hoàng", "Parent", 11, "2nd Runner Up"], ["#5", "18/07/2026", "Bảng E (U8)", "Vũ Nguyễn Mai Chy", "VSC Green Bay", 6, "Winner bảng"], ["#5", "18/07/2026", "Bảng E (U8)", "Nguyễn Như Minh Trí", "VSC Smart City", 7, "1st Runner Up"], ["#5", "18/07/2026", "Bảng E (U8)", "Đồng Quảng Thiên An", "VSC Smart City", 9, "2nd Runner Up"], ["#5", "18/07/2026", "Bảng E (U8)", "Đặng Yến Vy", "VSC Green Bay", 12, "3rd Runner Up"], ["#5", "18/07/2026", "Bảng D (U9)", "Nguyễn Đức Thiện Giác", "VSC Harmony", -1, "Winner bảng"], ["#5", "18/07/2026", "Bảng D (U9)", "Đinh Khắc Mạnh", "VSC OCP2", 6, "1st Runner Up"], ["#5", "18/07/2026", "Bảng D (U9)", "Vũ Gia Vượng", "VSC Green Bay", 8, "2nd Runner Up"], ["#5", "18/07/2026", "Bảng C (U10)", "Nguyễn Thiên Phúc", "Alpha School", 3, "Winner bảng"], ["#5", "18/07/2026", "Bảng C (U10)", "Phan Thế Minh", "VSC Smart City", 3, "Winner bảng"], ["#5", "18/07/2026", "Bảng C (U10)", "Đỗ Nam Khang", "VSC Smart City", 5, "1st Runner Up"], ["#5", "18/07/2026", "Bảng C (U10)", "Đỗ Nam Phúc", "VSC Smart City", 6, "2nd Runner Up"], ["#5", "18/07/2026", "Bảng B (U11)", "Nghiêm Tùng Lâm", "TVD", 1, "Winner bảng"], ["#5", "18/07/2026", "Bảng B (U11)", "Nguyễn Minh Khang", "TVD", 3, "1st Runner Up"], ["#5", "18/07/2026", "Bảng B (U11)", "Nguyễn An Nhiên", "VSC Time City", 3, "1st Runner Up"], ["#5", "18/07/2026", "Bảng B (U11)", "Nguyễn Nhật Nam", "VSC Time City", 7, "2nd Runner Up"], ["#5", "18/07/2026", "Bảng A (U12)", "Lê Minh Hoàng", "FPT", -1, "Vô địch (Best Gross)"], ["#5", "18/07/2026", "Bảng A (U12)", "Bùi Vũ Trúc Mai", "TVD", 0, "Winner bảng"], ["#5", "18/07/2026", "Bảng A (U12)", "Mai Nguyễn Minh Hoàng", "TVD", 4, "1st Runner Up"], ["#6", "25/07/2026", "Future Star (U8)", "Đinh Nhã An", "VSC Time City", 4, "Winner bảng"], ["#6", "25/07/2026", "Future Star (U8)", "Nguyễn Quý Đỉnh", "VSC Green Bay", 7, "1st Runner Up"], ["#6", "25/07/2026", "Future Star (U8)", "Nguyễn Lê Tuệ Anh", "VSC Time City", 7, "1st Runner Up"], ["#6", "25/07/2026", "Future Star (U8)", "Nguyễn Louis Nam Nhật Hoàng", "VSC Green Bay", 8, "2nd Runner Up"], ["#6", "25/07/2026", "Super Star (U9+)", "Nguyễn Đức Thiện Giác", "VSC Harmony", -3, "Vô địch (Best Gross)"], ["#6", "25/07/2026", "Super Star (U9+)", "Nguyễn Thiên Phúc", "Alpha School", 0, "Winner bảng"], ["#6", "25/07/2026", "Super Star (U9+)", "Lê Minh Hoàng", "FPT", 1, "1st Runner Up"], ["#6", "25/07/2026", "Super Star (U9+)", "Đào Nhật Anh Khôi", "VSC Harmony", 3, "2nd Runner Up"], ["#6", "25/07/2026", "Super Star (U9+)", "Nguyễn Minh Khang", "TVD", 4, "3rd Runner Up"]], "clbMap": {"VSC Harmony": "VSC Harmony", "VSC Time City": "VSC Time City", "VSC Green Bay": "VSC Green Bay", "VSC Smart City": "VSC Smart City", "VSC OCP2": "VSC OCP2", "Alpha School": "Alpha School", "TVD": "TVD", "FPT": "FPT", "HDHN": "HDHN", "LHG": "LHG", "KL1": "KL1", "Parent": "Parent", "VSC HAR": "VSC Harmony", "VSC TC": "VSC Time City", "VSC TC-K2": "VSC Time City", "VSC GB": "VSC Green Bay", "VSC SMC": "VSC Smart City", "APS": "Alpha School", "AlphaSchool": "Alpha School"}, "diem": {"Vô địch (Best Gross)": 500, "Winner bảng": 300, "1st Runner Up": 250, "2nd Runner Up": 200, "3rd Runner Up": 150, "4th Runner Up": 100}, "diemThamDu": 50, "banDuLieu": "25/08/2026"};
+var BALL = ["#D23A2E", "#D9A21A", "#2A6FC9", "#2E9E52", "#0E6B3E"];
+var state = { tab: "tong", q: "", nguon: "goi-san" };
+var D = null;
+
+/* ---------- đọc CSV ---------- */
+function parseCSV(text) {
+  var rows = [], row = [], cell = "", inQ = false;
+  for (var i = 0; i < text.length; i++) {
+    var ch = text[i];
+    if (inQ) {
+      if (ch === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else inQ = false; }
+      else cell += ch;
+    } else if (ch === '"') inQ = true;
+    else if (ch === ",") { row.push(cell); cell = ""; }
+    else if (ch === "\n") { row.push(cell); rows.push(row); row = []; cell = ""; }
+    else if (ch !== "\r") cell += ch;
+  }
+  if (cell !== "" || row.length) { row.push(cell); rows.push(row); }
+  return rows;
+}
+
+function tuCSV(text) {
+  var rows = parseCSV(text).filter(function (r) { return r.some(function (c) { return String(c).trim() !== ""; }); });
+  if (!rows.length) return null;
+  var head = rows[0].map(function (c) { return String(c).trim().toLowerCase(); });
+  var iG = head.indexOf("giải"), iN = head.indexOf("ngày"), iB = head.indexOf("bảng đấu"),
+      iV = head.indexOf("vđv"), iC = head.indexOf("clb"), iS = head.indexOf("score"),
+      iD = head.indexOf("danh hiệu");
+  if (iG < 0 || iV < 0 || iD < 0) return null;
+  var out = [];
+  for (var i = 1; i < rows.length; i++) {
+    var r = rows[i];
+    var ten = (r[iV] || "").trim();
+    if (!ten) continue;
+    out.push([(r[iG] || "").trim(), (r[iN] || "").trim(), (r[iB] || "").trim(), ten,
+              (r[iC] || "").trim(), parseFloat(r[iS]) || 0, (r[iD] || "").trim()]);
+  }
+  return out.length ? out : null;
+}
+
+/* ---------- tính bảng xếp hạng ---------- */
+function chuan(clb) { return clb ? (CFG.clbMap[clb] || clb) : "Chưa xác định"; }
+var CHAMP = "Vô địch (Best Gross)", WIN = "Winner bảng";
+
+function xuLy(raw) {
+  var giai = [], byGiai = {};
+  raw.forEach(function (r) { if (giai.indexOf(r[0]) < 0) { giai.push(r[0]); byGiai[r[0]] = []; } byGiai[r[0]].push(r); });
+  giai.sort();
+
+  var P = {};
+  raw.forEach(function (r) {
+    var ten = r[3], dh = r[6];
+    var tt = CFG.diem[dh] || 0, td = CFG.diemThamDu;
+    var p = P[ten] || (P[ten] = { ten: ten, clb: "", diem: 0, tt: 0, td: 0, sg: 0, vd: 0, win: 0, ev: {}, dh: {} });
+    if (r[4] && !p.clb) p.clb = chuan(r[4]);
+    p.diem += tt + td; p.tt += tt; p.td += td; p.sg += 1;
+    if (dh === CHAMP) p.vd += 1;
+    if (dh === WIN) p.win += 1;
+    p.ev[r[0]] = (p.ev[r[0]] || 0) + tt + td;
+    p.dh[r[0]] = dh;
+  });
+  var players = Object.keys(P).map(function (k) { return P[k]; });
+  players.sort(function (a, b) { return b.diem - a.diem || b.vd - a.vd || b.win - a.win || a.sg - b.sg || a.ten.localeCompare(b.ten, "vi"); });
+  xepHang(players);
+
+  var C = {};
+  players.forEach(function (p) {
+    var k = p.clb || "Chưa xác định";
+    var c = C[k] || (C[k] = { clb: k, diem: 0, tt: 0, td: 0, n: 0, vd: 0, win: 0, vdv: [] });
+    c.diem += p.diem; c.tt += p.tt; c.td += p.td; c.n += 1; c.vd += p.vd; c.win += p.win; c.vdv.push(p);
+  });
+  var chua = C["Chưa xác định"]; delete C["Chưa xác định"];
+  var clbs = Object.keys(C).map(function (k) { return C[k]; });
+  clbs.forEach(function (c) {
+    c.vdv.sort(function (a, b) { return b.diem - a.diem; });
+    c.top = c.vdv.length ? c.vdv[0].ten : "";
+    c.tb = c.n ? Math.round(c.diem / c.n) : 0;
+  });
+  clbs.sort(function (a, b) { return b.diem - a.diem || b.vd - a.vd || a.n - b.n || a.clb.localeCompare(b.clb, "vi"); });
+  xepHang(clbs);
+  if (chua) { chua.vdv.sort(function (a, b) { return b.diem - a.diem; }); }
+
+  var events = {};
+  giai.forEach(function (g) {
+    var er = byGiai[g], bangs = [], seen = [];
+    er.forEach(function (r) { if (seen.indexOf(r[2]) < 0) seen.push(r[2]); });
+    seen.forEach(function (b) {
+      var vs = er.filter(function (r) { return r[2] === b; })
+                 .sort(function (x, y) { return x[5] - y[5]; })
+                 .map(function (r) { return { ten: r[3], clb: chuan(r[4]), score: r[5], dh: r[6], diem: (CFG.diem[r[6]] || 0) + CFG.diemThamDu }; });
+      bangs.push({ ten: b, vdv: vs });
+    });
+    events[g] = { ngay: er[0][1] ? dinhDangNgay(er[0][1]) : "", bangs: bangs, sovdv: er.length };
+  });
+
+  return { players: players, clbs: clbs, chua: chua, events: events, giai: giai,
+           tong: players.reduce(function (s, p) { return s + p.diem; }, 0),
+           vdLuot: raw.filter(function (r) { return r[6] === CHAMP; }).length };
+}
+
+function xepHang(list) {
+  var hang = 0, prev = null;
+  list.forEach(function (x, i) { if (x.diem !== prev) { hang = i + 1; prev = x.diem; } x.hang = hang; });
+  list.forEach(function (x) { x.tie = list.filter(function (y) { return y.hang === x.hang; }).length > 1; });
+}
+
+function dinhDangNgay(s) {
+  var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s).trim());
+  return m ? m[3] + "/" + m[2] + "/" + m[1] : String(s).trim();
+}
+
+/* ---------- hiển thị ---------- */
+function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+function norm(s) { return String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/đ/g, "d").replace(/Đ/g, "d").toLowerCase(); }
+function match(n) { return !state.q || norm(n).indexOf(norm(state.q)) >= 0; }
+function so(n) { return Number(n).toLocaleString("vi-VN"); }
+
+function veStats() {
+  var s = [["6", "Chặng đã đấu"], [String(D.giai.length), "Chặng tính điểm"],
+           [String(D.players.length), "Vận động viên"], [String(D.clbs.length), "CLB tham dự"],
+           [so(D.tong), "Điểm đã trao"], [String(D.vdLuot), "Lượt vô địch"]];
+  document.getElementById("stats").innerHTML = s.map(function (x) {
+    return '<div class="stat"><b>' + x[0] + '</b><span>' + x[1] + '</span></div>';
+  }).join("");
+}
+
+function veThangDiem() {
+  var keys = Object.keys(CFG.diem);
+  var h = keys.map(function (k) { return '<li><span>' + esc(k.replace(" (Best Gross)", " — Best Gross")) + '</span><b>' + CFG.diem[k] + '</b></li>'; }).join("");
+  h += '<li class="hi"><span>Tham dự — mỗi chặng</span><b>+' + CFG.diemThamDu + '</b></li>';
+  document.getElementById("thang").innerHTML = h;
+}
+
+function veTabs() {
+  var el = document.getElementById("tabs");
+  var list = [["tong", "Tổng"], ["clb", "CLB"]].concat(D.giai.map(function (g) { return [g, "Chặng " + g.replace("#", "")]; }));
+  el.innerHTML = "";
+  list.forEach(function (x) {
+    var b = document.createElement("button");
+    b.className = "tab"; b.textContent = x[1]; b.setAttribute("role", "tab");
+    b.setAttribute("aria-selected", x[0] === state.tab ? "true" : "false");
+    b.onclick = function () {
+      state.tab = x[0];
+      Array.prototype.forEach.call(el.children, function (c) { c.setAttribute("aria-selected", c === b ? "true" : "false"); });
+      ve();
+    };
+    el.appendChild(b);
+  });
+}
+
+function veTong() {
+  var rows = D.players.filter(function (p) { return match(p.ten); });
+  if (!rows.length) return '<p class="empty">Không tìm thấy vận động viên nào khớp với “' + esc(state.q) + '”.</p>';
+  var h = '<table><thead><tr><th class="c-rank">Hạng</th><th>Vận động viên</th><th class="c-num">Điểm</th>'
+        + D.giai.map(function (g, i) { return '<th class="c-num"><span class="ball" style="background:' + BALL[i % BALL.length] + '"></span>' + esc(g) + '</th>'; }).join("")
+        + '<th class="c-num">Chặng</th><th class="c-num">Tham dự</th><th>Thành tích</th></tr></thead><tbody>';
+  rows.forEach(function (p) {
+    var bd = p.vd ? '<span class="badge">' + p.vd + '× Vô địch</span>'
+           : (p.win ? '<span class="dh">' + p.win + '× Winner bảng</span>' : '<span class="dh" style="color:var(--ink-3)">—</span>');
+    h += '<tr class="' + (p.hang <= 3 ? "podium" : "") + '">'
+      + '<td class="c-rank"><span class="rank">' + (p.tie ? '<em>T</em>' : '') + p.hang + '</span></td>'
+      + '<td><div class="name">' + esc(p.ten) + '</div>' + (p.clb && p.clb !== "Chưa xác định" ? '<div class="club">' + esc(p.clb) + '</div>' : '') + '</td>'
+      + '<td class="c-num"><span class="pts">' + so(p.diem) + '</span></td>'
+      + D.giai.map(function (g) {
+          var v = p.ev[g], champ = p.dh[g] === CHAMP;
+          return '<td class="c-num"><span class="ev ' + (v == null ? "none" : (champ ? "champ" : "")) + '">' + (v == null ? "–" : v) + '</span></td>';
+        }).join("")
+      + '<td class="c-num"><span class="ev">' + p.sg + '</span></td>'
+      + '<td class="c-num"><span class="ev join">+' + p.td + '</span></td>'
+      + '<td>' + bd + '</td></tr>';
+  });
+  return h + '</tbody></table>';
+}
+
+function veClb() {
+  var rows = D.clbs.filter(function (c) { return match(c.clb) || c.vdv.some(function (v) { return match(v.ten); }); });
+  var max = D.clbs.length ? D.clbs[0].diem : 1;
+  var h = '<table><thead><tr><th class="c-rank">Hạng</th><th>CLB</th><th class="c-num">Tổng điểm</th>'
+        + '<th class="c-num">Thành tích</th><th class="c-num">Tham dự</th><th class="c-num">VĐV</th>'
+        + '<th class="c-num">TB/VĐV</th><th class="c-num">Vô địch</th><th>Đóng góp nhiều nhất</th></tr></thead><tbody>';
+  if (!rows.length) {
+    h += '<tr><td colspan="9"><p class="empty">Không tìm thấy CLB nào khớp với “' + esc(state.q) + '”.</p></td></tr>';
+  } else rows.forEach(function (c) {
+    h += '<tr class="' + (c.hang <= 3 ? "podium" : "") + '">'
+      + '<td class="c-rank"><span class="rank">' + (c.tie ? '<em>T</em>' : '') + c.hang + '</span></td>'
+      + '<td><div class="name">' + esc(c.clb) + '</div><div class="bar-track"><span class="bar-fill" style="width:' + Math.round(c.diem / max * 100) + '%"></span></div></td>'
+      + '<td class="c-num"><span class="pts">' + so(c.diem) + '</span></td>'
+      + '<td class="c-num"><span class="ev">' + so(c.tt) + '</span></td>'
+      + '<td class="c-num"><span class="ev join">+' + so(c.td) + '</span></td>'
+      + '<td class="c-num"><span class="ev">' + c.n + '</span></td>'
+      + '<td class="c-num"><span class="ev">' + so(c.tb) + '</span></td>'
+      + '<td class="c-num">' + (c.vd ? '<span class="badge">' + c.vd + '×</span>' : '<span class="ev none">–</span>') + '</td>'
+      + '<td><span class="dh">' + esc(c.top) + '</span></td></tr>';
+  });
+  h += '</tbody></table>';
+  if (D.chua) {
+    h += '<div class="pending"><b>' + D.chua.n + ' vận động viên chưa gán CLB</b> — tổng ' + so(D.chua.diem)
+       + ' điểm, chưa được tính vào bảng trên: ' + D.chua.vdv.map(function (v) { return esc(v.ten); }).join(" · ") + '.</div>';
+  }
+  return h;
+}
+
+function veChang(g) {
+  var e = D.events[g];
+  var h = '<div class="evhead"><h2>Chặng ' + esc(g.replace("#", "")) + '</h2><p>' + esc(e.ngay) + ' · ' + e.sovdv + ' vận động viên · điểm đã gồm 50đ tham dự</p></div>';
+  var any = false;
+  e.bangs.forEach(function (b) {
+    var vs = b.vdv.filter(function (v) { return match(v.ten); });
+    if (!vs.length) return;
+    any = true;
+    h += '<div class="grp">' + esc(b.ten) + '</div><table><thead><tr><th class="c-rank">Score</th><th>Vận động viên</th><th>Danh hiệu</th><th class="c-num">Điểm</th></tr></thead><tbody>';
+    vs.forEach(function (v) {
+      var s = v.score > 0 ? "+" + v.score : (v.score === 0 ? "E" : v.score);
+      var champ = v.dh === CHAMP;
+      h += '<tr class="' + (champ ? "podium" : "") + '"><td class="c-rank"><span class="score ' + (v.score < 0 ? "under" : "") + '">' + s + '</span></td>'
+        + '<td><div class="name">' + esc(v.ten) + '</div>' + (v.clb && v.clb !== "Chưa xác định" ? '<div class="club">' + esc(v.clb) + '</div>' : '') + '</td>'
+        + '<td>' + (champ ? '<span class="badge">Vô địch</span>' : '<span class="dh">' + esc(v.dh || "—") + '</span>') + '</td>'
+        + '<td class="c-num"><span class="pts" style="font-size:18px">' + v.diem + '</span></td></tr>';
+    });
+    h += '</tbody></table>';
+  });
+  if (!any) h += '<p class="empty">Không có vận động viên nào khớp với “' + esc(state.q) + '” ở chặng này.</p>';
+  return h;
+}
+
+function ve() {
+  document.getElementById("view").innerHTML =
+    state.tab === "tong" ? veTong() : (state.tab === "clb" ? veClb() : veChang(state.tab));
+  baoChieuCao();
+}
+
+function baoChieuCao() {
+  if (window.parent === window) return;
+  try { window.parent.postMessage({ snagLeaderboardHeight: document.documentElement.scrollHeight }, "*"); } catch (e) {}
+}
+
+function khoiDong(raw, nguon) {
+  D = xuLy(raw);
+  state.nguon = nguon;
+  veStats(); veThangDiem(); veTabs(); ve();
+  document.getElementById("stamp").textContent =
+    nguon === "sheet" ? "Số liệu đọc trực tiếp từ Google Sheets của ban tổ chức"
+                      : "Bản dữ liệu " + CFG.banDuLieu;
+  document.getElementById("nguon").textContent =
+    nguon === "sheet" ? "Trang này đọc thẳng từ bảng kết quả của ban tổ chức, cập nhật ngay khi có kết quả mới."
+                      : "Trang đang dùng bản dữ liệu chốt ngày " + CFG.banDuLieu + ".";
+  window.addEventListener("resize", baoChieuCao);
+  setTimeout(baoChieuCao, 400);
+}
+
+document.getElementById("q").addEventListener("input", function (e) { state.q = e.target.value.trim(); ve(); });
+
+if (CSV_URL) {
+  fetch(CSV_URL, { cache: "no-store" })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+    .then(function (t) {
+      var raw = tuCSV(t);
+      if (!raw) throw new Error("khong doc duoc cot");
+      khoiDong(raw, "sheet");
+    })
+    .catch(function (err) {
+      if (window.console) console.warn("[BXH SNAG] Không đọc được Google Sheets, dùng bản đóng gói sẵn:", err);
+      khoiDong(CFG.fallback, "goi-san");
+    });
+} else {
+  khoiDong(CFG.fallback, "goi-san");
+}
+</script>
+</body>
+</html>
